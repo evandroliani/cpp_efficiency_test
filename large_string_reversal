@@ -1,0 +1,39 @@
+//
+//  main.cpp
+//  test_cpp_features
+//
+//  Created by Evandro Liani on 10/11/25.
+//
+#include<algorithm>
+#include <iostream>
+#include <string>
+#include <chrono>
+
+int main(int argc, const char * argv[]) {
+    std::string instring, outstring;
+    instring = " If the string is reasonably compressible, it's probably faster to read the compressed form in and decompress it than to just read it in, considering the speed of the processor vs. the speed of the HDD";
+    //
+    std:: cout << "Method one: loop through each element" << std::endl;
+    auto start = std::chrono::high_resolution_clock::now();
+    for (int i= 0; i<instring.size(); i++){
+        outstring.push_back(instring[instring.size() - 1 - i]);
+    }
+    auto stop = std::chrono::high_resolution_clock::now();
+    std:: cout << "The inverted string is: " << std::endl;
+    std::cout << outstring << std::endl;
+    std::cout << "The size of the reverse string is" << std::endl;
+    std:: cout << outstring.size() << std::endl;
+    auto duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << "Execution time for method 1 is: " << duration.count() << " ms"<< std::endl;
+    //
+    std:: cout << "Method 2: use reverse function from STL, invert without using another variable" << std::endl;
+    start = std::chrono::high_resolution_clock::now();
+    std::reverse(instring.begin(), instring.end());
+    stop = std::chrono::high_resolution_clock::now();
+    duration = std::chrono::duration_cast<std::chrono::microseconds>(stop - start);
+    std::cout << instring << std::endl;
+    std::cout << "The size of the reverse string is" << std::endl;
+    std:: cout << instring.size() << std::endl;
+    std::cout << "Execution time is for method 2 is: " << duration.count() << " ms"<< std::endl;
+    return 0;
+}

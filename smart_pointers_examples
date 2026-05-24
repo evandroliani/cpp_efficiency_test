@@ -1,0 +1,37 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <memory>
+
+class Parent{
+  public:
+  Parent(){std::cout << "I am a parent" << std::endl;}
+  virtual bool operator> (Parent p){return m_age > p.m_age;}
+  virtual void set_age(int age){m_age = age;}
+  virtual int get_age(){return m_age;}
+  private:
+  int m_age;
+};
+
+class Child: public Parent{
+  public:
+  Child(){std::cout << "I am a child" << std::endl;}
+};
+
+
+int main()
+{
+    std::shared_ptr<Parent> parent(new Parent());
+    std::shared_ptr<Parent> child(new Child());
+    parent->set_age(40);
+    child->set_age(5);
+    bool res = *parent > *child;
+    std::cout << res << std::endl;
+    return 0;
+}
